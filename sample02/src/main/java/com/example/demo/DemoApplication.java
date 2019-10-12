@@ -39,19 +39,35 @@ public class DemoApplication implements CommandLineRunner {
                 .sum();
 
         log.info("밀크가 들어있는 메뉴의 총합은? " + sumByMilk + "원");
-        log.info("1500원 이하 메뉴의 총합은? " + sumByUnder1600 + "원");
+        log.info("1600원 이하 메뉴의 총합은? " + sumByUnder1600 + "원");
 
 
 
         /*
-            [TO-BE]
+            [TO-BE] 방법 1
         */
 
         sumByMilk = sumByPredicate(coffeeRepository.findAllOrderByPrice(), Coffee::getMilk);
         sumByUnder1600 = sumByPredicate(coffeeRepository.findAllOrderByPrice(), coffee -> coffee.getPrice() < 1600);
 
         log.info("밀크가 들어있는 메뉴의 총합은? " + sumByMilk + "원");
-        log.info("1500원 이하 메뉴의 총합은? " + sumByUnder1600 + "원");
+        log.info("1600원 이하 메뉴의 총합은? " + sumByUnder1600 + "원");
+
+
+        /*
+            참고
+            https://www.baeldung.com/java-predicate-chain
+        */
+
+        Predicate<Coffee> predicate1 = Coffee::getMilk;
+        Predicate<Coffee> predicate2 =  coffee -> coffee.getPrice() < 1600;
+
+        int sumByMilkAndUnder1600 = coffeeRepository.findAllOrderByPrice().stream()
+                .filter(predicate1.and(predicate2))
+                .mapToInt(Coffee::getPrice)
+                .sum();
+
+        log.info("밀크가 들어있고, 1600원 이하인 메뉴의 총합은? " + sumByMilkAndUnder1600 + "원");
 
     }
 

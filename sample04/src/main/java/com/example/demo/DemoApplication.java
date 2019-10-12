@@ -54,7 +54,7 @@ public class DemoApplication implements CommandLineRunner {
 
         list.forEach(log::info);
 
-        
+
     }
 
 }
