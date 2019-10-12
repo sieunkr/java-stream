@@ -77,7 +77,7 @@ public class DemoApplication implements CommandLineRunner {
 
         final List<String> list = Arrays.asList("latte", "americano", "cappuccino", "coldbrew", "affogato");
 
-        ForkJoinPool customThreadPool = new ForkJoinPool(1);
+        ForkJoinPool customThreadPool = new ForkJoinPool(10);
         ForkJoinTask<List<Coffee>> threads = customThreadPool.submit(() ->
                 list.parallelStream()
                         .map(coffeeRepository::findByName)
@@ -92,5 +92,4 @@ public class DemoApplication implements CommandLineRunner {
 
 
     }
-
 }
