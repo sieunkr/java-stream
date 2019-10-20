@@ -49,7 +49,7 @@ public class DemoApplication implements CommandLineRunner {
 
 
         /*
-            [TO-BE] 개선
+            [TO-BE] 함수형 프로그래밍으로 개선
         */
 
         Optional<Coffee> coffeeOptional = coffeeRepository.findAllOrderByPrice().stream()
